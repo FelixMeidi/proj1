@@ -148,11 +148,11 @@ public class Vector3 {
         boolean calculateX = false;
         boolean calculateY = false;
         boolean calculateZ = false;
-        if(diff.x>y&&diff.x>z)
-        {
+        if(diff.x>diff.y&&diff.x>diff.z)
+         {
             calculateX = true;
         }
-        else if(diff.y>x&&diff.y>z)
+        else if(diff.y>diff.x&&diff.y>diff.z)
         {
             calculateY = true;
         }
@@ -183,11 +183,11 @@ public class Vector3 {
         diff.y = Math.abs(diff.y);
         diff.z = Math.abs(diff.z);
         Vector3 v = this.copied();
-        if(diff.x>y&&diff.x>z)
+        if(diff.x>diff.y&&diff.x>diff.z)
         {
             v.x = 0;
         }
-        else if(diff.y>x&&diff.y>z)
+        else if(diff.y>diff.x&&diff.y>diff.z)
         {
             v.y = 0;
         }

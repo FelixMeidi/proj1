@@ -30,7 +30,7 @@ public /*static*/ final class PhysicHandler
                     if (h2.activated&&!h2.checked) {
                         if (c1 != c2) {
                             //calculate offset
-                            int c3 = 2;
+                            int c3 = 1;
                             Vector3 offset;
                             float velocitySum = h1.physic2.getVelocity().sum()/100;
                             boolean collisionFound = false;
@@ -46,14 +46,18 @@ public /*static*/ final class PhysicHandler
 
                                     if(h1.physic2.infiniteWeight)
                                     {
-                                        newVelocity2 = h2.physic2.getVelocity().calculateNewVelocity(h1.physic2.getVelocity(),h1.getPosition(),h2.getPosition());
+                                        newVelocity2 = h2.physic2.getVelocity().calculateNewVelocity(h1.physic2.getVelocity(),h2.getPosition(),h1.getPosition());
                                     }
                                     if(h2.physic2.infiniteWeight)
                                     {
-                                        newVelocity1 = h1.physic2.getVelocity().calculateNewVelocity(h2.physic2.getVelocity(),h2.getPosition(),h1.getPosition());
+                                        newVelocity1 = h1.physic2.getVelocity().calculateNewVelocity(h2.physic2.getVelocity(),h1.getPosition(),h2.getPosition());
                                     }
                                     h1.physic2.setVelocity(newVelocity1);
                                     h2.physic2.setVelocity(newVelocity2);
+                                    if(h1.parent.ID==2&&h2.parent.ID==3)
+                                    {
+                                        System.out.println(offset.x+"  ddwadaw  "+offset.y  + " dwadwd   "+h1.physic2.getVelocity().x );
+                                    }
 
 
                                     if(c3>2)//calculate polished offset and position
@@ -120,7 +124,7 @@ public /*static*/ final class PhysicHandler
     {
         for (int c1 = 0; c1 < GameCharacter.gameCharacterList.size(); c1++) {
             Physic2 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic2();
-            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-10f))));
+            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-1f,0))));
         }
     }
 }

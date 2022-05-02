@@ -40,17 +40,17 @@ public class Hitbox2 extends Child {
         this.bounds = bounds;
 
     }
-    public Vector3 getBoundsNegative(){return new Vector3(-bounds.x,-bounds.y);}
+    public Vector3 getBoundsNegative(){return new Vector3(-bounds.x,-bounds.y,-bounds.z);}
 
     public Vector3 getBoundsGlobal(){return bounds.added(getPosition());}
 
     public Vector3 getBoundsGlobalNegative(){return getBoundsNegative().added(getPosition());}
 
     public float getBoundsDiagonale(){
-        return (float)Math.sqrt((bounds.x+Math.abs(getBoundsNegative().x))*(bounds.x+Math.abs(getBoundsNegative().x))+(bounds.y+Math.abs(getBoundsNegative().y))*(bounds.y+Math.abs(getBoundsNegative().y)));
+        return (float)Math.sqrt((bounds.x+Math.abs(getBoundsNegative().x))*(bounds.x+Math.abs(getBoundsNegative().x))+(bounds.y+Math.abs(getBoundsNegative().y))*(bounds.y+Math.abs(getBoundsNegative().y)+(bounds.z+Math.abs(getBoundsNegative().z))*(bounds.z+Math.abs(getBoundsNegative().z))));
     }
     public Vector3 getTotalBounds(){
-        return new Vector3((bounds.x+Math.abs(getBoundsNegative().x)),(bounds.y+Math.abs(getBoundsNegative().y)));
+        return new Vector3((bounds.x+Math.abs(getBoundsNegative().x)),(bounds.y+Math.abs(getBoundsNegative().y)),(bounds.z+Math.abs(getBoundsNegative().z)));
     }
 
 
@@ -120,22 +120,26 @@ public class Hitbox2 extends Child {
 
 
 
-    public boolean overlapsHitbox(Vector3 h2Bounds, Vector3 h2BoundsNegative)
+
+    public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
     {
-        if ((getBoundsGlobal().x >= h2BoundsNegative.x && getBoundsGlobal().y >= h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().x <= h2Bounds.x && getBoundsGlobalNegative().y <= h2Bounds.y))//check h1<h2
+        if ((getBoundsGlobal().added(offset).x > h2BoundsNegative.x && getBoundsGlobal().added(offset).y > h2BoundsNegative.y)//check h1>h2
+                && ( getBoundsGlobalNegative().added(offset).y < h2Bounds.y && getBoundsGlobalNegative().added(offset).y < h2Bounds.y)
+            && ( getBoundsGlobalNegative().added(offset).z < h2Bounds.z && getBoundsGlobalNegative().added(offset).z < h2Bounds.z))//check h1<h2
         {
             return  true;
         }
         return  false;
     }
+/*
     public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
     {
         if ((getBoundsGlobal().added(offset).x >= h2BoundsNegative.x && getBoundsGlobal().added(offset).y >= h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().added(offset).x <= h2Bounds.x && getBoundsGlobalNegative().added(offset).y <= h2Bounds.y))//check h1<h2
+                && ( getBoundsGlobalNegative().added(offset).y <= h2Bounds.y && getBoundsGlobalNegative().added(offset).y <= h2Bounds.y)
+                && ( getBoundsGlobalNegative().added(offset).z <= h2Bounds.z && getBoundsGlobalNegative().added(offset).z <= h2Bounds.z))//check h1<h2
         {
             return  true;
         }
         return  false;
-    }
+    }*/
 }

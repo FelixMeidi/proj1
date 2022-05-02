@@ -17,7 +17,7 @@ public class Physic2{
     public boolean fixed;
     public boolean infiniteWeight;
     private Vector3 velocity;
-    public Vector3 getVelocity(){return new Vector3(velocity.x, velocity.y);}
+    public Vector3 getVelocity(){return new Vector3(velocity.x, velocity.y,velocity.z);}
     public void setVelocity(Vector3 targetVelocity){velocity = targetVelocity;}
     public void setVelocityX(float targetVelocityX){velocity.x = targetVelocityX;}
 
