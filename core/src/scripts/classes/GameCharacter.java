@@ -10,7 +10,7 @@ public class GameCharacter
     protected GameCharacter(int ID,Texture img,float weight, boolean fixed)
     {
         positon = new Vector3();
-        physic2 = new Physic2(this,fixed,false,weight);
+        physic3 = new Physic3(this,weight,fixed,false,true);
         childList = new ArrayList<Child>();
         tx = img;
         this.ID = ID;
@@ -18,13 +18,14 @@ public class GameCharacter
     protected GameCharacter(int ID,Texture img,boolean fixed)
     {
         positon = new Vector3();
-        physic2 = new Physic2(this,fixed,true,314);
+        physic3 = new Physic3(this,0,fixed,true,true);
         childList = new ArrayList<Child>();
         tx = img;
         this.ID = ID;
     }
 
-    public int ID;
+    private int ID;
+    public int getId(){return ID;}
 
 
 
@@ -52,8 +53,8 @@ public class GameCharacter
 
 
 
-    protected Physic2 physic2;
-    public Physic2 getPhysic2(){return physic2;}
+    protected Physic3 physic3;
+    public Physic3 getPhysic3(){return physic3;}
 
 
 

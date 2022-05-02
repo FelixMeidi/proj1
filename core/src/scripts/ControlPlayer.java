@@ -2,6 +2,7 @@ package scripts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import scripts.classes.Force;
 import scripts.classes.GameCharacter;
 import scripts.classes.Vector3;
 
@@ -13,7 +14,7 @@ public abstract class ControlPlayer {
     public static GameCharacter player;
 
 
-
+    private static Force f;
 
     public static void getInputs()
     {
@@ -35,10 +36,14 @@ public abstract class ControlPlayer {
             currentMovement.y-=1;
         }
         currentMovement = currentMovement.multiplied(1);
-        player.getPhysic2().setVelocityX(currentMovement.x);
-        if(currentMovement.x != 0||currentMovement.y!=0)
+        if(!player.getPhysic3().checkForForceInForceListID(-1,player.getId()))
         {
-            System.out.println("");
+            f = new Force(currentMovement,-1, player.getId());
+            player.getPhysic3().addToForceList(f);
+        }
+        else
+        {
+            f.setDirectionVector3(currentMovement.copied());
         }
     }
 }

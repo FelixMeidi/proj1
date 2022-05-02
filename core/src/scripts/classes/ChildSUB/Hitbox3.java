@@ -6,23 +6,23 @@ import scripts.classes.GameCharacter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static scripts.classes.PhysicHandler.hitbox2List;
+import static scripts.classes.PhysicHandler.hitbox3List;
 
-public class Hitbox2 extends Child {
-    public Hitbox2(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds) {
+public class Hitbox3 extends Child {
+    public Hitbox3(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds) {
         super(parent,positionHandler);
-        checked = false;
-        this.parent = parent;
-        hitbox2List.add(this);
-        setBounds(bounds);
-        activated = true;
-        this.physic2 = parent.getPhysic2();
-        collisionList = new ArrayList<>();
-
+        autoInit(false,parent,bounds,true,parent.getPhysic3());
     }
-    public Hitbox2(Vector3 bounds)
+
+    public void autoInit(boolean checked, GameCharacter parent,Vector3 bounds,boolean activated, Physic3 phy)
     {
+        hitbox3List.add(this);
+        this.checked = checked;
+        this.parent = parent;
         setBounds(bounds);
+        this.activated = activated;
+        this.physic3 = phy;
+        collisionList = new ArrayList<>();
     }
 
 
@@ -57,7 +57,7 @@ public class Hitbox2 extends Child {
 
 
 
-    public Physic2 physic2;
+    public Physic3 physic3;
 
     public List<Collision> collisionList;
 
@@ -79,7 +79,7 @@ public class Hitbox2 extends Child {
 
 
 
-
+/*
     public void onCollision(Collision collision) {
         boolean foundCollision = false;
         int index = 0;
@@ -113,7 +113,7 @@ public class Hitbox2 extends Child {
         collisionList.remove(collision);
        // System.out.println("behold, CollisionExit!");
     }
-
+*/
 
 
 
