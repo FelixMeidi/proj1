@@ -9,7 +9,7 @@ public class ChildPositionHandler
 
 
 
-    public Vector2 handlePosition(Vector2 targetPosition){
+    public Vector3 handlePosition(Vector3 targetPosition){
        return targetPosition.copied();
     }
 }

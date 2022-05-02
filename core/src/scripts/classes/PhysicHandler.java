@@ -31,7 +31,7 @@ public /*static*/ final class PhysicHandler
                         if (c1 != c2) {
                             //calculate offset
                             int c3 = 2;
-                            Vector2 offset;
+                            Vector3 offset;
                             float velocitySum = h1.physic2.getVelocity().sum()/100;
                             boolean collisionFound = false;
                             do{
@@ -40,9 +40,9 @@ public /*static*/ final class PhysicHandler
                                     h1.onCollision(new Collision(h1, h2));
                                     h2.onCollision(new Collision(h2, h1));
 
-                                    Vector2 newVelocity1 = h1.physic2.getVelocity().calculateNewVelocity(h2.physic2.getVelocity(),h1.getPosition(),h2.getPosition(),h1.physic2.getWeight(),h2.physic2.getWeight());
+                                    Vector3 newVelocity1 = h1.physic2.getVelocity().calculateNewVelocity(h2.physic2.getVelocity(),h1.getPosition(),h2.getPosition(),h1.physic2.getWeight(),h2.physic2.getWeight());
 //
-                                    Vector2 newVelocity2 = h2.physic2.getVelocity().calculateNewVelocity(h1.physic2.getVelocity(),h2.getPosition(),h1.getPosition(),h2.physic2.getWeight(),h1.physic2.getWeight());
+                                    Vector3 newVelocity2 = h2.physic2.getVelocity().calculateNewVelocity(h1.physic2.getVelocity(),h2.getPosition(),h1.getPosition(),h2.physic2.getWeight(),h1.physic2.getWeight());
 
                                     if(h1.physic2.infiniteWeight)
                                     {
@@ -58,13 +58,13 @@ public /*static*/ final class PhysicHandler
 
                                     if(c3>2)//calculate polished offset and position
                                     {
-                                        Vector2 accurateOffset = new Vector2();
+                                        Vector3 accurateOffset = new Vector3();
                                         float addition = 0;
                                         do {
                                             accurateOffset = accurateOffset.added(h1.physic2.getVelocity().zeroOrOned().multiplied(addition));
                                             addition++;
                                         }while(!h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),accurateOffset));
-                                   //     Vector2 setback = h1.physic2.getVelocity().zeroOrOned().multiplied(addition);
+                                   //     Vector3 setback = h1.physic2.getVelocity().zeroOrOned().multiplied(addition);
                                     //    setback = setback.multiplied(0);
                                    //     accurateOffset = accurateOffset.subbed(setback);
                                         h1.parent.addToPosition(accurateOffset);
@@ -73,7 +73,7 @@ public /*static*/ final class PhysicHandler
                                 }
                                 c3++;
 
-                            }while(velocitySum > offset.valued().sum()/2&&!collisionFound);
+                            }while(velocitySum > offset.mathAbs().sum()/2&&!collisionFound);
                         }
                     }
                 }
@@ -120,7 +120,7 @@ public /*static*/ final class PhysicHandler
     {
         for (int c1 = 0; c1 < GameCharacter.gameCharacterList.size(); c1++) {
             Physic2 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic2();
-            phy2.setVelocity(new Vector2(phy2.getVelocity().added(new Vector2(0,-10f))));
+            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-10f))));
         }
     }
 }

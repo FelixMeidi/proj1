@@ -7,7 +7,7 @@ public class Physic2{
     //region constructors
     public Physic2(GameCharacter gameCharacter, boolean fixed, boolean infiniteWeight, float weight){
         this.gameCharacter = gameCharacter;
-        velocity = new Vector2();
+        velocity = new Vector3();
         this.fixed = fixed;
         this.infiniteWeight = infiniteWeight;
         this.weight = weight;
@@ -16,9 +16,9 @@ public class Physic2{
     private GameCharacter gameCharacter;
     public boolean fixed;
     public boolean infiniteWeight;
-    private Vector2 velocity;
-    public Vector2 getVelocity(){return new Vector2(velocity.x, velocity.y);}
-    public void setVelocity(Vector2 targetVelocity){velocity = targetVelocity;}
+    private Vector3 velocity;
+    public Vector3 getVelocity(){return new Vector3(velocity.x, velocity.y);}
+    public void setVelocity(Vector3 targetVelocity){velocity = targetVelocity;}
     public void setVelocityX(float targetVelocityX){velocity.x = targetVelocityX;}
 
     private float weight;
