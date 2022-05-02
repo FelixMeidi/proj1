@@ -183,11 +183,11 @@ public class Vector3 {
         diff.y = Math.abs(diff.y);
         diff.z = Math.abs(diff.z);
         Vector3 v = this.copied();
-        if(diff.x>diff.y&&diff.x>diff.z)
+        if(diff.x>=diff.y&&diff.x>=diff.z)
         {
             v.x = 0;
         }
-        else if(diff.y>diff.x&&diff.y>diff.z)
+        else if(diff.y>=diff.x&&diff.y>=diff.z)
         {
             v.y = 0;
         }
@@ -196,5 +196,21 @@ public class Vector3 {
             v.z = 0;
         }
         return v;
-    }
+    }/*
+    public Vector2 calculateNewVelocity(Vector2 v2,Vector2 pos1,Vector2 pos2)
+    {
+        Vector2 diff = pos2.subbed(pos1);
+        diff.x = Math.abs(diff.x);
+        diff.y = Math.abs(diff.y);
+        Vector2 v = this.copied();
+        if(diff.x>diff.y)
+        {
+            v.x = 0;
+        }
+        else if(diff.x<diff.y)
+        {
+            v.y = 0;
+        }
+        return v;
+    }*/
 }

@@ -54,9 +54,10 @@ public /*static*/ final class PhysicHandler
                                     }
                                     h1.physic2.setVelocity(newVelocity1);
                                     h2.physic2.setVelocity(newVelocity2);
-                                    if(h1.parent.ID==2&&h2.parent.ID==3)
+                                    if(h1.parent.ID==2&&h2.parent.ID==3&&newVelocity1.x==0)
                                     {
                                         System.out.println(offset.x+"  ddwadaw  "+offset.y  + " dwadwd   "+h1.physic2.getVelocity().x );
+                                        System.out.println(h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),offset));
                                     }
 
 
