@@ -120,7 +120,7 @@ public /*static*/ final class PhysicHandler
     {
         for (int c1 = 0; c1 < GameCharacter.gameCharacterList.size(); c1++) {
             Physic2 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic2();
-            phy2.setVelocity(new Vector2(phy2.getVelocity().added(new Vector2(0,-10f))));
+            phy2.setVelocity(new Vector2(phy2.getVelocity().added(new Vector2(0,-1f))));
         }
     }
 }

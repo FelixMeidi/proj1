@@ -151,7 +151,6 @@ public class Vector2 {
         {
             result = this.copied();
         }
-        System.out.println(result.x + "------------------");
         return result;
     }
 
