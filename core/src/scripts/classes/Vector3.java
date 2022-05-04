@@ -196,21 +196,11 @@ public class Vector3 {
             v.z = 0;
         }
         return v;
-    }/*
-    public Vector2 calculateNewVelocity(Vector2 v2,Vector2 pos1,Vector2 pos2)
+    }
+
+
+    public static Vector3 getAvarageFactor(Vector3 v1,Vector3 v2,float w1,float w2)
     {
-        Vector2 diff = pos2.subbed(pos1);
-        diff.x = Math.abs(diff.x);
-        diff.y = Math.abs(diff.y);
-        Vector2 v = this.copied();
-        if(diff.x>diff.y)
-        {
-            v.x = 0;
-        }
-        else if(diff.x<diff.y)
-        {
-            v.y = 0;
-        }
-        return v;
-    }*/
+        return new Vector3(v1.multiplied(w1).added(v2.multiplied(w2)).divided(w1+w2));
+    }
 }

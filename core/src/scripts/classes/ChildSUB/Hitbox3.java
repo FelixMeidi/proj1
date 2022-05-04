@@ -9,17 +9,17 @@ import java.util.List;
 import static scripts.classes.PhysicHandler.hitbox3List;
 
 public class Hitbox3 extends Child {
-    public Hitbox3(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds) {
+    public Hitbox3(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds, Vector3 boundsNegative) {
         super(parent,positionHandler);
-        autoInit(false,parent,bounds,true,parent.getPhysic3());
+        autoInit(false,parent,bounds,boundsNegative,true,parent.getPhysic3());
     }
 
-    public void autoInit(boolean checked, GameCharacter parent,Vector3 bounds,boolean activated, Physic3 phy)
+    public void autoInit(boolean checked, GameCharacter parent,Vector3 bounds,Vector3 boundsNegative,boolean activated, Physic3 phy)
     {
         hitbox3List.add(this);
         this.checked = checked;
         this.parent = parent;
-        setBounds(bounds);
+        setBounds(bounds,boundsNegative);
         this.activated = activated;
         this.physic3 = phy;
         collisionList = new ArrayList<>();
@@ -33,25 +33,19 @@ public class Hitbox3 extends Child {
     public boolean activated;
 
     private Vector3 bounds;
+    private Vector3 boundsNegative;
 
     public Vector3 getBounds(){return bounds;}
-    public void setBounds (Vector3 bounds){
+    public void setBounds (Vector3 bounds,Vector3 boundsNegative){
 
         this.bounds = bounds;
-
+        this.boundsNegative = boundsNegative;
     }
-    public Vector3 getBoundsNegative(){return new Vector3(-bounds.x,-bounds.y,-bounds.z);}
+    public Vector3 getBoundsNegative(){return boundsNegative.copied();}
 
     public Vector3 getBoundsGlobal(){return bounds.added(getPosition());}
 
     public Vector3 getBoundsGlobalNegative(){return getBoundsNegative().added(getPosition());}
-
-    public float getBoundsDiagonale(){
-        return (float)Math.sqrt((bounds.x+Math.abs(getBoundsNegative().x))*(bounds.x+Math.abs(getBoundsNegative().x))+(bounds.y+Math.abs(getBoundsNegative().y))*(bounds.y+Math.abs(getBoundsNegative().y)+(bounds.z+Math.abs(getBoundsNegative().z))*(bounds.z+Math.abs(getBoundsNegative().z))));
-    }
-    public Vector3 getTotalBounds(){
-        return new Vector3((bounds.x+Math.abs(getBoundsNegative().x)),(bounds.y+Math.abs(getBoundsNegative().y)),(bounds.z+Math.abs(getBoundsNegative().z)));
-    }
 
 
 
@@ -142,4 +136,25 @@ public class Hitbox3 extends Child {
         }
         return  false;
     }*/
+    public Vector3 calculateNewVelocity(Vector3 v1,Vector3 v2,Vector3 pos1,Vector3 pos2)
+    {
+        Vector3 newVector = v1.copied();
+        Vector3 diff = pos2.subbed(pos1);
+        diff.x = Math.abs(diff.x);
+        diff.y = Math.abs(diff.y);
+        diff.z = Math.abs(diff.z);
+        if(diff.x>=diff.y&&diff.x>=diff.z)
+        {
+            newVector.x = 0;
+        }
+        else if(diff.y>=diff.x&&diff.y>=diff.z)
+        {
+            newVector.y = 0;
+        }
+        else
+        {
+            newVector.z = 0;
+        }
+        return newVector;
+    }
 }

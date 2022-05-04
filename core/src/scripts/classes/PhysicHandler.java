@@ -21,7 +21,7 @@ public /*static*/ final class PhysicHandler
 
 
     public static void updateHitboxes()
-    {/*
+    {
         for (int c1 = 0; c1 < hitbox3List.size(); c1++) {
             Hitbox3 h1 = hitbox3List.get(c1);
             if (h1.activated&&!h1.checked) {//check next frame, not this!-------
@@ -29,34 +29,47 @@ public /*static*/ final class PhysicHandler
                     Hitbox3 h2 = hitbox3List.get(c2);
                     if (h2.activated&&!h2.checked) {
                         if (c1 != c2) {
-                            //calculate offset
-                   //         int c3 = 1;
-                 //           Vector3 offset;
-                   //         float velocitySum = h1.physic3.getVelocity().sum()/100;
-                  //          boolean collisionFound = false;
-                   //         do{
-           //                     offset = h1.physic3.getVelocity().zeroOrOned().multiplied(c3);
-                       //         if (h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),offset)) {
-                             //       h1.onCollision(new Collision(h1, h2));
-                             //       h2.onCollision(new Collision(h2, h1));
+                            int c3 = 0;
+                            boolean collisionFound = false;
+                            Vector3 offset = new Vector3();
+                      //      do{
+                                offset = offset.added(h1.physic3.simulateVelocity().zeroOrOned()).copied();
+                                if (h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),offset)) {
+                                    //            h1.onCollision(new Collision(h1, h2));
+                                    //            h2.onCollision(new Collision(h2, h1));
+                                    Vector3 simulated1 = h1.physic3.simulateVelocity().copied();
+                                    Vector3 simulated2 = h2.physic3.simulateVelocity().copied();
+                                    Vector3 newVelocity1;
+                                    Vector3 newVelocity2;
 
 
-                                    Vector3 newVelocity1 = h1.physic3.getVelocity().calculateNewVelocity(h2.physic3.getVelocity(),h1.getPosition(),h2.getPosition(),h1.physic3.getWeight(),h2.physic3.getWeight());
-//
-                                    Vector3 newVelocity2 = h2.physic3.getVelocity().calculateNewVelocity(h1.physic3.getVelocity(),h2.getPosition(),h1.getPosition(),h2.physic3.getWeight(),h1.physic3.getWeight());
-
-                                    if(h1.physic3.getInfiniteWeight())
+                                    if(!h1.physic3.getInfiniteWeight()&&!h2.physic3.getInfiniteWeight())
                                     {
-                                        newVelocity2 = h2.physic3.getVelocity().calculateNewVelocity(h1.physic3.getVelocity(),h2.getPosition(),h1.getPosition());
+                                        Vector3 velocity1h1 = h1.calculateNewVelocity(simulated1,simulated2,h1.getPosition(),h2.getPosition());
+                                        Vector3 velocity1h2 = h2.calculateNewVelocity(simulated1,simulated2,h1.getPosition(),h2.getPosition());
+
+                                        Vector3 velocity2h1 = h1.calculateNewVelocity(simulated2,simulated1,h2.getPosition(),h1.getPosition());
+                                        Vector3 velocity2h2 = h2.calculateNewVelocity(simulated2,simulated1,h2.getPosition(),h1.getPosition());
+
+                                        simulated1 = Vector3.getAvarageFactor(velocity1h1,velocity1h2,h1.physic3.getWeight(),h2.physic3.getWeight());
+
+                                        simulated2  = Vector3.getAvarageFactor(velocity2h1,velocity2h2,h2.physic3.getWeight(),h1.physic3.getWeight());
+                                    }/*
+                                    else if(h1.physic3.getInfiniteWeight())
+                                    {
+                                        newForceVelocity2 = h2.physic3.getVelocity().calculateNewVelocity(h1.physic3.getVelocity(),h2.getPosition(),h1.getPosition());
                                     }
                                     if(h2.physic3.getInfiniteWeight())
                                     {
-                                        newVelocity1 = h1.physic3.getVelocity().calculateNewVelocity(h2.physic3.getVelocity(),h1.getPosition(),h2.getPosition());
-                                    }
-                                    h1.physic3.addToForceList(new Force(newVelocity1,h1.parent.getId(),h2.parent.getId()));
-                                    h2.physic3.addToForceList(new Force(newVelocity2,h2.parent.getId(),h1.parent.getId()));
+                                        newForceVelocity1 = h1.physic3.getVelocity().calculateNewVelocity(h2.physic3.getVelocity(),h1.getPosition(),h2.getPosition());
+                                    }*/
+                                    Force f1 = new Force(simulated1, h2.physic3.getWeight(), h1.parent.getId(), h2.parent.getId());
+                                    Force f2 = new Force(simulated2, h1.physic3.getWeight(), h2.parent.getId(), h1.parent.getId());
 
+                                    h1.physic3.addToForceList(f1);
+                                    h2.physic3.addToForceList(f2);
 
+/*
 
 
                                     if(c3>2)//calculate polished offset and position
@@ -64,24 +77,25 @@ public /*static*/ final class PhysicHandler
                                         Vector3 accurateOffset = new Vector3();
                                         float addition = 0;
                                         do {
-                                            accurateOffset = accurateOffset.added(h1.physic3.getVelocity().zeroOrOned().multiplied(addition));
+                                            accurateOffset = accurateOffset.added(h1.physic3.handleVelocity(true).zeroOrOned().multiplied(addition));
                                             addition++;
                                         }while(!h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),accurateOffset));
-                                   //     Vector3 setback = h1.physic3.getVelocity().zeroOrOned().multiplied(addition);
-                                    //    setback = setback.multiplied(0);
-                                   //     accurateOffset = accurateOffset.subbed(setback);
+                                        Vector3 setback = h1.physic3.handleVelocity(true).zeroOrOned().multiplied(addition);
+                                        setback = setback.multiplied(0);
+                                        accurateOffset = accurateOffset.subbed(setback);
                                         h1.parent.addToPosition(accurateOffset);
                                     }
                                     collisionFound = true;
                                 }
-                      //          c3++;
+                                c3++;
 
-                      //      }while(velocitySum > offset.mathAbs().sum()/2&&!collisionFound);
+                            }while(velocitySum > offset.mathAbs().sum()/2&&!collisionFound);*/
+                           /**/}
                         }
                     }
                 }
             }
-        //    h1.checked = true;
+            h1.checked = true;
         }
 
 
@@ -92,7 +106,7 @@ public /*static*/ final class PhysicHandler
         for (int c1 = 0; c1 < hitbox3List.size(); c1++) {
             Hitbox3 h = hitbox3List.get(c1);
             h.checked = false;
-
+/*
             for (int c4 = 0; c4 < h.collisionList.size(); c4++)
             {
 
@@ -108,8 +122,8 @@ public /*static*/ final class PhysicHandler
                 {
                     c.setRefreshedThisCycle(false);
                 }
-            }
-        }*/
+            }*/
+        }
     }
     public static void applyVelocities()
     {

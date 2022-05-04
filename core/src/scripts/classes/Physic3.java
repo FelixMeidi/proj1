@@ -39,7 +39,7 @@ public class Physic3 {
 
 
 
-    private Vector3 lastVelocity;
+    public Vector3 lastVelocity;
 
 
 
@@ -98,17 +98,42 @@ public class Physic3 {
 
 
 
-    public void handleVelocity()
+    public Vector3 handleVelocity()
     {
         if(lastVelocity==null)
         {
             lastVelocity = new Vector3();
         }
+        lastVelocity.reset();
         for(int c1 = 0;c1<forceList.size();c1++)
         {
-            lastVelocity = forceList.get(c1).handleForce(lastVelocity.copied());
+            lastVelocity = forceList.get(c1).applyForce(lastVelocity.copied(),false);
         }
         gameCharacter.setPosition(gameCharacter.getPositon().added(lastVelocity.multiplied(Gdx.graphics.getDeltaTime()).multiplied(100)));
+        for(int c1 = 0;c1<forceList.size();c1++)
+        {
+            if(forceList.get(c1).next())
+            {
+                forceList.remove(c1);
+                c1=0;
+            }
+        }
+        return lastVelocity.copied();
+    }
+
+
+
+    public Vector3 simulateVelocity()
+    {
+        if(lastVelocity==null)
+        {
+            lastVelocity = new Vector3();
+        }
         lastVelocity.reset();
+        for(int c1 = 0;c1<forceList.size();c1++)
+        {
+            lastVelocity = forceList.get(c1).applyForce(lastVelocity.copied(),true);
+        }
+        return lastVelocity.copied();
     }
 }

@@ -38,7 +38,7 @@ public abstract class ControlPlayer {
         currentMovement = currentMovement.multiplied(1);
         if(!player.getPhysic3().checkForForceInForceListID(-1,player.getId()))
         {
-            f = new Force(currentMovement,-1, player.getId());
+            f = new Force(currentMovement,player.getPhysic3().getWeight(),-1, player.getId());
             player.getPhysic3().addToForceList(f);
         }
         else
