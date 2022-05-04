@@ -45,15 +45,15 @@ public /*static*/ final class PhysicHandler
 
                                     if(!h1.physic3.getInfiniteWeight()&&!h2.physic3.getInfiniteWeight())
                                     {
-                                        Vector3 velocity1h1 = h1.calculateNewVelocity(simulated1,simulated2,h1.getPosition(),h2.getPosition());
-                                        Vector3 velocity1h2 = h2.calculateNewVelocity(simulated1,simulated2,h1.getPosition(),h2.getPosition());
+                                        Vector3 velocity1h1 = h1.calculateNewVelocity(simulated1.copied(),h1.getPosition().copied(),h2.getPosition().copied());
+                                        Vector3 velocity1h2 = h2.calculateNewVelocity(simulated2.copied(),h1.getPosition().copied(),h2.getPosition().copied());
 
-                                        Vector3 velocity2h1 = h1.calculateNewVelocity(simulated2,simulated1,h2.getPosition(),h1.getPosition());
-                                        Vector3 velocity2h2 = h2.calculateNewVelocity(simulated2,simulated1,h2.getPosition(),h1.getPosition());
+                                        Vector3 velocity2h1 = h1.calculateNewVelocity(simulated2.copied(),h2.getPosition().copied(),h1.getPosition().copied());
+                                        Vector3 velocity2h2 = h2.calculateNewVelocity(simulated1.copied(),h2.getPosition().copied(),h1.getPosition().copied());
 
-                                        simulated1 = Vector3.getAvarageFactor(velocity1h1,velocity1h2,h1.physic3.getWeight(),h2.physic3.getWeight());
+                                        simulated1 = Vector3.getAvarageFactor(velocity1h1.copied(),velocity1h2.copied(),h1.physic3.getWeight(),h2.physic3.getWeight());
 
-                                        simulated2  = Vector3.getAvarageFactor(velocity2h1,velocity2h2,h2.physic3.getWeight(),h1.physic3.getWeight());
+                                        simulated2  = Vector3.getAvarageFactor(velocity2h1.copied(),velocity2h2.copied(),h2.physic3.getWeight(),h1.physic3.getWeight());
                                     }/*
                                     else if(h1.physic3.getInfiniteWeight())
                                     {

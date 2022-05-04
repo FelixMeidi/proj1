@@ -44,10 +44,7 @@ public class GameCharacter
     public void setPosition(Vector3 targetposition){
         positon = targetposition;
     }
-    public void addToPosition(Vector3 addedPosition)
-    {
-        positon = positon.added(addedPosition);
-    }
+
 
 
 
@@ -67,6 +64,13 @@ public class GameCharacter
         childList.add(c);
     }
     public Child getfromChildList(int index){return childList.get(index);}
+
+
+
+
+
+
+
 
 
     public Texture tx;

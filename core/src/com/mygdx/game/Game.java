@@ -20,17 +20,17 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		h = new Human(1,new Texture("testcharacter.png"),1,false);
-		h.addtoChildList(new Hitbox3(h, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize),new Vector3(-hitboxsize,-hitboxsize,-hitboxsize)));
+		h.addtoChildList(new Hitbox3(h, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize)));
 		h.setPosition(new Vector3(80,150,0));
 
 		ControlPlayer.player = h;
 
 		h2 = new Human(2,new Texture("testcharacter.png"),2,false);
-		h2.addtoChildList(new Hitbox3(h2, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize),new Vector3(-hitboxsize,-hitboxsize,-hitboxsize)));
+		h2.addtoChildList(new Hitbox3(h2, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize)));
 		h2.setPosition(new Vector3(130,150,0));
 
 		h3 = new Human(3,new Texture("testcharacter.png"),true);
-		h3.addtoChildList(new Hitbox3(h3, new ChildPositionHandler(), new Vector3(hitboxsize*2,hitboxsize*2,hitboxsize*2),new Vector3(-hitboxsize*2,-hitboxsize*2,-hitboxsize*2)));
+		h3.addtoChildList(new Hitbox3(h3, new ChildPositionHandler(), new Vector3(hitboxsize*2,hitboxsize*2,hitboxsize*2)));
 		h3.setPosition(new Vector3(110,20,0));
 	}
 
