@@ -3,6 +3,7 @@ package scripts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import scripts.classes.Force;
+import scripts.classes.Force_Inheritance.ForceNoRemove;
 import scripts.classes.GameCharacter;
 import scripts.classes.Vector3;
 
@@ -38,7 +39,7 @@ public abstract class ControlPlayer {
         currentMovement = currentMovement.multiplied(1);
         if(!player.getPhysic3().checkForForceInForceListID(-1,player.getId()))
         {
-            f = new Force(currentMovement,player.getPhysic3().getWeight(),-1, player.getId());
+            f = new ForceNoRemove(currentMovement,player.getPhysic3().getWeight(),-1, player.getId());
             player.getPhysic3().addToForceList(f);
         }
         else

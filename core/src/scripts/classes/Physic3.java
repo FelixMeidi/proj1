@@ -12,6 +12,7 @@ public class Physic3 {
         this.infiniteWeight = infiniteWeight;
         this.weight = weight;
         this.affectedByGravity = affectedByGravity;
+        this.lastVelocity = new Vector3();
     }
 
 
@@ -98,18 +99,21 @@ public class Physic3 {
 
 
 
-    public Vector3 handleVelocity()
+    public void handleVelocity()
     {
-        if(lastVelocity==null)
-        {
-            lastVelocity = new Vector3();
-        }
-        lastVelocity.reset();
+        //applying velocity
+        Vector3 v = new Vector3();
         for(int c1 = 0;c1<forceList.size();c1++)
         {
-            lastVelocity = forceList.get(c1).applyForce(lastVelocity.copied(),false);
+            v = forceList.get(c1).applyForce(v.copied());
         }
-        gameCharacter.setPosition(gameCharacter.getPositon().added(lastVelocity.multiplied(Gdx.graphics.getDeltaTime()).multiplied(100)));
+        gameCharacter.setPosition(gameCharacter.getPositon().added(v.multiplied(Gdx.graphics.getDeltaTime()).multiplied(100)));
+
+
+
+
+
+        //clearing list
         for(int c1 = 0;c1<forceList.size();c1++)
         {
             if(forceList.get(c1).next())
@@ -118,22 +122,19 @@ public class Physic3 {
                 c1=0;
             }
         }
-        return lastVelocity.copied();
     }
+
 
 
 
     public Vector3 simulateVelocity()
     {
-        if(lastVelocity==null)
-        {
-            lastVelocity = new Vector3();
-        }
-        lastVelocity.reset();
+        //simulating
+        Vector3 v = new Vector3();
         for(int c1 = 0;c1<forceList.size();c1++)
         {
-            lastVelocity = forceList.get(c1).applyForce(lastVelocity.copied(),true);
+            v = forceList.get(c1).simulateForce(v.copied());
         }
-        return lastVelocity.copied();
+        return v.copied();
     }
 }

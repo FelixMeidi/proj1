@@ -18,22 +18,27 @@ public class Force {
 
 
 
-    public Vector3 applyForce(Vector3 sourceVector3, boolean simulate)
+    public Vector3 applyForce(Vector3 sourceVector3)
     {
         return new Vector3(sourceVector3.added(directionVector3));
     }
+
+
+
+
+
     public boolean next()
     {
         return true;
     }
-    public Vector3 simulateNext(int amount)
+
+
+
+
+
+    public Vector3 simulateForce(Vector3 sourceVector3)
     {
-        Vector3 source = directionVector3.copied();
-        for(int c1 = 0;c1<amount;c1++)
-        {
-            source = source.added(source.copied());
-        }
-        return source;
+        return new Vector3(sourceVector3.added(directionVector3));
     }
 
 

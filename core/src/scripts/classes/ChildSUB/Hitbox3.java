@@ -115,25 +115,39 @@ public class Hitbox3 extends Child {
 
     public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
     {
-        if ((getBoundsGlobal().added(offset).x > h2BoundsNegative.x && getBoundsGlobal().added(offset).y > h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().added(offset).y < h2Bounds.y && getBoundsGlobalNegative().added(offset).y < h2Bounds.y)
-            && ( getBoundsGlobalNegative().added(offset).z < h2Bounds.z && getBoundsGlobalNegative().added(offset).z < h2Bounds.z))//check h1<h2
+         if(
+                 (
+                         getBoundsGlobal().added(offset).x > h2BoundsNegative.x
+                                 &&
+                         getBoundsGlobalNegative().added(offset).x < h2Bounds.x
+                 )
+             &&
+                 (
+                         getBoundsGlobal().added(offset).y > h2BoundsNegative.y
+                                 &&
+                         getBoundsGlobalNegative().added(offset).y < h2Bounds.y
+                 )
+              &&
+                 (
+                         getBoundsGlobal().added(offset).z > h2BoundsNegative.z
+                                 &&
+                         getBoundsGlobalNegative().added(offset).z < h2Bounds.z
+                 )
+         )
         {
             return  true;
         }
         return  false;
     }
-/*
-    public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
-    {
-        if ((getBoundsGlobal().added(offset).x >= h2BoundsNegative.x && getBoundsGlobal().added(offset).y >= h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().added(offset).y <= h2Bounds.y && getBoundsGlobalNegative().added(offset).y <= h2Bounds.y)
-                && ( getBoundsGlobalNegative().added(offset).z <= h2Bounds.z && getBoundsGlobalNegative().added(offset).z <= h2Bounds.z))//check h1<h2
-        {
-            return  true;
-        }
-        return  false;
-    }*/
+
+
+
+
+
+
+
+
+
     public Vector3 calculateNewVelocity(Vector3 v1,Vector3 pos1,Vector3 pos2)
     {
         Vector3 newVector = v1.copied();

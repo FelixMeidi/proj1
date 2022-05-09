@@ -103,6 +103,11 @@ public class Vector3 {
 
 
 
+    public Vector3 inverted()
+    {
+        return new Vector3(-x,-y,-z);
+    }
+
 
 
 

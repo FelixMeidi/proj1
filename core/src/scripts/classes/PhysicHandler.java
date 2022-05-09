@@ -39,8 +39,6 @@ public /*static*/ final class PhysicHandler
                                     //            h2.onCollision(new Collision(h2, h1));
                                     Vector3 simulated1 = h1.physic3.simulateVelocity().copied();
                                     Vector3 simulated2 = h2.physic3.simulateVelocity().copied();
-                                    Vector3 newVelocity1;
-                                    Vector3 newVelocity2;
 
 
                                     if(!h1.physic3.getInfiniteWeight()&&!h2.physic3.getInfiniteWeight())
