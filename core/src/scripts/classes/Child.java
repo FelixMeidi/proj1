@@ -18,7 +18,7 @@ public class Child {
 
 
 
-    public Vector2 getPosition(){
+    public Vector3 getPosition(){
         return positionHandler.handlePosition(parent.getPositon()).copied();
     }
 }

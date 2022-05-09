@@ -9,7 +9,7 @@ import java.util.List;
 import static scripts.classes.PhysicHandler.hitbox2List;
 
 public class Hitbox2 extends Child {
-    public Hitbox2(GameCharacter parent, ChildPositionHandler positionHandler, Vector2 bounds) {
+    public Hitbox2(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds) {
         super(parent,positionHandler);
         checked = false;
         this.parent = parent;
@@ -20,7 +20,7 @@ public class Hitbox2 extends Child {
         collisionList = new ArrayList<>();
 
     }
-    public Hitbox2(Vector2 bounds)
+    public Hitbox2(Vector3 bounds)
     {
         setBounds(bounds);
     }
@@ -32,26 +32,20 @@ public class Hitbox2 extends Child {
 
     public boolean activated;
 
-    private Vector2 bounds;
+    private Vector3 bounds;
 
-    public Vector2 getBounds(){return bounds;}
-    public void setBounds (Vector2 bounds){
+    public Vector3 getBounds(){return bounds;}
+    public void setBounds (Vector3 bounds){
 
         this.bounds = bounds;
 
     }
-    public Vector2 getBoundsNegative(){return new Vector2(-bounds.x,-bounds.y);}
+    public Vector3 getBoundsNegative(){return new Vector3(-bounds.x,-bounds.y,-bounds.z);}
 
-    public Vector2 getBoundsGlobal(){return bounds.added(getPosition());}
+    public Vector3 getBoundsGlobal(){return bounds.added(getPosition());}
 
-    public Vector2 getBoundsGlobalNegative(){return getBoundsNegative().added(getPosition());}
+    public Vector3 getBoundsGlobalNegative(){return getBoundsNegative().added(getPosition());}
 
-    public float getBoundsDiagonale(){
-        return (float)Math.sqrt((bounds.x+Math.abs(getBoundsNegative().x))*(bounds.x+Math.abs(getBoundsNegative().x))+(bounds.y+Math.abs(getBoundsNegative().y))*(bounds.y+Math.abs(getBoundsNegative().y)));
-    }
-    public Vector2 getTotalBounds(){
-        return new Vector2((bounds.x+Math.abs(getBoundsNegative().x)),(bounds.y+Math.abs(getBoundsNegative().y)));
-    }
 
 
 
@@ -120,7 +114,7 @@ public class Hitbox2 extends Child {
 
 
 
-    public boolean overlapsHitbox(Vector2 h2Bounds,Vector2 h2BoundsNegative)
+    public boolean overlapsHitbox(Vector3 h2Bounds, Vector3 h2BoundsNegative)
     {
         if ((getBoundsGlobal().x >= h2BoundsNegative.x && getBoundsGlobal().y >= h2BoundsNegative.y)//check h1>h2
                 && ( getBoundsGlobalNegative().x <= h2Bounds.x && getBoundsGlobalNegative().y <= h2Bounds.y))//check h1<h2
@@ -129,10 +123,27 @@ public class Hitbox2 extends Child {
         }
         return  false;
     }
-    public boolean overlapsHitboxOffset(Vector2 h2Bounds,Vector2 h2BoundsNegative,Vector2 offset)
+    public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
     {
-        if ((getBoundsGlobal().added(offset).x >= h2BoundsNegative.x && getBoundsGlobal().added(offset).y >= h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().added(offset).x <= h2Bounds.x && getBoundsGlobalNegative().added(offset).y <= h2Bounds.y))//check h1<h2
+        if(
+                (
+                        getBoundsGlobal().added(offset).x > h2BoundsNegative.x
+                                &&
+                                getBoundsGlobalNegative().added(offset).x < h2Bounds.x
+                )
+                        &&
+                        (
+                                getBoundsGlobal().added(offset).y > h2BoundsNegative.y
+                                        &&
+                                        getBoundsGlobalNegative().added(offset).y < h2Bounds.y
+                        )
+                        &&
+                        (
+                                getBoundsGlobal().added(offset).z > h2BoundsNegative.z
+                                        &&
+                                        getBoundsGlobalNegative().added(offset).z < h2Bounds.z
+                        )
+        )
         {
             return  true;
         }

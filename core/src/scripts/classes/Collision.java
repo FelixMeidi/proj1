@@ -3,7 +3,7 @@ package scripts.classes;
 import scripts.classes.ChildSUB.Hitbox2;
 
 public class Collision {
-    public Collision(Hitbox2 colliderPrimary,Hitbox2 colliderSecondary/*,Vector2 direction*/){
+    public Collision(Hitbox2 colliderPrimary,Hitbox2 colliderSecondary/*,Vector3 direction*/){
         this.colliderPrimary = colliderPrimary;
         this.colliderSecondary = colliderSecondary;
        /* this.direction = direction;*/
@@ -27,5 +27,5 @@ public class Collision {
 
 
 
-   /* public Vector2 direction;*/
+   /* public Vector3 direction;*/
 }

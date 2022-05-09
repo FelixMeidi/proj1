@@ -3,7 +3,7 @@ package scripts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import scripts.classes.GameCharacter;
-import scripts.classes.Vector2;
+import scripts.classes.Vector3;
 
 public abstract class ControlPlayer {
 
@@ -17,7 +17,7 @@ public abstract class ControlPlayer {
 
     public static void getInputs()
     {
-        Vector2 currentMovement = new Vector2();
+        Vector3 currentMovement = new Vector3();
         if(Gdx.input.isKeyPressed(Input.Keys.D))
         {
             currentMovement.x+=1;

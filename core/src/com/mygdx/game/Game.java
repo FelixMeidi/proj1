@@ -8,7 +8,7 @@ import scripts.classes.ChildSUB.Hitbox2;
 import scripts.classes.GameCharacterSUB.Human;
 import scripts.classes.PhysicHandler;
 import scripts.classes.Renderer;
-import scripts.classes.Vector2;
+import scripts.classes.Vector3;
 
 public class Game extends ApplicationAdapter {
 	Human h;
@@ -20,18 +20,18 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		h = new Human(1,new Texture("testcharacter.png"),1,false);
-		h.addtoChildList(new Hitbox2(h, new ChildPositionHandler(), new Vector2(hitboxsize,hitboxsize)));
-		h.setPosition(new Vector2(80,150));
+		h.addtoChildList(new Hitbox2(h, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize)));
+		h.setPosition(new Vector3(80,150,0));
 
 		ControlPlayer.player = h;
 
 		h2 = new Human(2,new Texture("testcharacter.png"),1,false);
-		h2.addtoChildList(new Hitbox2(h2, new ChildPositionHandler(), new Vector2(hitboxsize,hitboxsize)));
-		h2.setPosition(new Vector2(130,150));
+		h2.addtoChildList(new Hitbox2(h2, new ChildPositionHandler(), new Vector3(hitboxsize,hitboxsize,hitboxsize)));
+		h2.setPosition(new Vector3(130,150,0));
 
 		h3 = new Human(3,new Texture("testcharacter.png"),true);
-		h3.addtoChildList(new Hitbox2(h3, new ChildPositionHandler(), new Vector2(hitboxsize*2,hitboxsize*2)));
-		h3.setPosition(new Vector2(110,20));
+		h3.addtoChildList(new Hitbox2(h3, new ChildPositionHandler(), new Vector3(hitboxsize*2,hitboxsize*2,hitboxsize*2)));
+		h3.setPosition(new Vector3(110,20,0));
 	}
 
 	@Override
