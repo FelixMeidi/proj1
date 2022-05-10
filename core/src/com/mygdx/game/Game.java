@@ -18,20 +18,20 @@ public class Game extends ApplicationAdapter {
 	Hitbox3 box;
 	public static int hb = 20;
 
-	public static Vector3 characterVectorPositive = new Vector3(15,60,10);
-	public static Vector3 characterVectorNegative = new Vector3(-20,-80,-10);
+	public static Vector3 charHitboxBounds = new Vector3(15,60,10);
+	public static Vector3 charHitboxBoundsNeg = new Vector3(-20,-80,-10);
 	
 	@Override
 	public void create () {
 		h = new Human(1,1,false);
-		h.addtoChildList(new Hitbox3(h, new ChildPositionHandler(), characterVectorPositive, characterVectorNegative));
+		h.addtoChildList(new Hitbox3(h, new ChildPositionHandler(), charHitboxBounds, charHitboxBoundsNeg));
 		h.addtoChildList(new TextureChild(new Texture("testcharacter.png"),h,new Vector3(0,0,39)));
 		h.setPosition(new Vector3(80,150,0));
 
 		ControlPlayer.player = h;
 
 		h2 = new Human(2,1,false);
-		h2.addtoChildList(new Hitbox3(h2, new ChildPositionHandler(), characterVectorPositive, characterVectorNegative));
+		h2.addtoChildList(new Hitbox3(h2, new ChildPositionHandler(), charHitboxBounds, charHitboxBoundsNeg));
 		h2.addtoChildList(new TextureChild(new Texture("testcharacter.png"),h2,new Vector3(0,0,39)));
 		h2.setPosition(new Vector3(130,150,0));
 
