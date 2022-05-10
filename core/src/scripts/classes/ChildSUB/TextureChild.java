@@ -38,8 +38,8 @@ public class TextureChild extends Child
     public boolean rendered;
     public Vector3 rootoffset;
 
-  /*  @Override
+    @Override
     public Vector3 getPosition(){
-        return parent.getPosition().copied().added(rootoffset.multiplied(Renderer.scaling));
-    }*/
+        return positionHandler.handlePosition(parent.getPosition()).copied().added(rootoffset);
+    }
 }

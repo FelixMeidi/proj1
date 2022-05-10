@@ -46,7 +46,7 @@ public class Hitbox3 extends Child
 
     public Vector3 getBounds()
     {
-        return bounds;
+        return bounds.copied();
     }
 
     public void setBounds(Vector3 bounds)
@@ -61,7 +61,7 @@ public class Hitbox3 extends Child
 
     public Vector3 getBoundsNegative()
     {
-        return boundsNegative;
+        return boundsNegative.copied();
     }
 
     public Vector3 getBoundsGlobal()
