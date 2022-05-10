@@ -6,7 +6,6 @@ public class Child {
         this.parent = parent;
         this.positionHandler = positionHandler;
     }
-    public Child(){}
 
 
 
@@ -19,6 +18,6 @@ public class Child {
 
 
     public Vector3 getPosition(){
-        return positionHandler.handlePosition(parent.getPositon()).copied();
+        return positionHandler.handlePosition(parent.getPosition()).copied();
     }
 }

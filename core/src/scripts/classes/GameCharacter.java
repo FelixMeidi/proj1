@@ -7,20 +7,18 @@ import java.util.List;
 
 public class GameCharacter
 {
-    protected GameCharacter(int ID,Texture img,float weight, boolean fixed)
+    protected GameCharacter(int ID,float weight, boolean fixed)
     {
         positon = new Vector3();
         physic3 = new Physic3(this,fixed,false,weight);
         childList = new ArrayList<Child>();
-        tx = img;
         this.ID = ID;
     }
-    protected GameCharacter(int ID,Texture img,boolean fixed)
+    protected GameCharacter(int ID,boolean fixed)
     {
         positon = new Vector3();
         physic3 = new Physic3(this,fixed,true,314);
         childList = new ArrayList<Child>();
-        tx = img;
         this.ID = ID;
     }
 
@@ -39,7 +37,7 @@ public class GameCharacter
 
 
     protected Vector3 positon;
-    public Vector3 getPositon(){return positon.copied();}
+    public Vector3 getPosition(){return positon.copied();}
     public void setPosition(Vector3 targetposition)
     {
         positon = targetposition;
@@ -82,9 +80,4 @@ public class GameCharacter
 
 
 
-
-
-
-    //OTHER//
-   public boolean rendered;
 }

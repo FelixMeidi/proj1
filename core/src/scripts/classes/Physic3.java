@@ -28,7 +28,7 @@ public class Physic3 {
 
     public void handleVelocity()
     {
-        gameCharacter.setPosition(gameCharacter.getPositon().added(getVelocity().multiplied(Gdx.graphics.getDeltaTime()).multiplied(100)));
+        gameCharacter.setPosition(gameCharacter.getPosition().added(getVelocity().multiplied(Gdx.graphics.getDeltaTime()).multiplied(100)));
         velocity.reset();
     }
 }

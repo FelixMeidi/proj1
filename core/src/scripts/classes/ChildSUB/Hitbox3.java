@@ -22,6 +22,18 @@ public class Hitbox3 extends Child
         this.physic3 = parent.getPhysic2();
         collisionList = new ArrayList<>();
     }
+    public Hitbox3(GameCharacter parent,Vector3 bounds, Vector3 boundsNegative)
+    {
+        super(parent, new ChildPositionHandler());
+        checked = false;
+        this.parent = parent;
+        hitbox3List.add(this);
+        setBounds(bounds);
+        setBoundsNegative(boundsNegative);
+        activated = true;
+        this.physic3 = parent.getPhysic2();
+        collisionList = new ArrayList<>();
+    }
 
 
     public boolean checked;
