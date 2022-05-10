@@ -28,17 +28,16 @@ public abstract class ControlPlayer {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W))
         {
-            currentMovement.y+=1;
+            currentMovement.z-=1;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S))
         {
-            currentMovement.y-=1;
+            currentMovement.z+=1;
         }
         currentMovement = currentMovement.multiplied(1);
-        player.getPhysic2().setVelocityX(currentMovement.x);
-        if(currentMovement.x != 0||currentMovement.y!=0)
-        {
-            System.out.println("");
-        }
+        Vector3 newvel = player.getPhysic2().getVelocity().copied();
+        newvel.x = currentMovement.x;
+        newvel.z = currentMovement.z;
+        player.getPhysic2().setVelocity(newvel);
     }
 }

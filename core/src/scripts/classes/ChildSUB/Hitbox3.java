@@ -6,26 +6,22 @@ import scripts.classes.GameCharacter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static scripts.classes.PhysicHandler.hitbox2List;
+import static scripts.classes.PhysicHandler.hitbox3List;
 
-public class Hitbox2 extends Child {
-    public Hitbox2(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds) {
-        super(parent,positionHandler);
+public class Hitbox3 extends Child
+{
+    public Hitbox3(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds, Vector3 boundsNegative)
+    {
+        super(parent, positionHandler);
         checked = false;
         this.parent = parent;
-        hitbox2List.add(this);
+        hitbox3List.add(this);
         setBounds(bounds);
+        setBoundsNegative(boundsNegative);
         activated = true;
-        this.physic2 = parent.getPhysic2();
+        this.physic3 = parent.getPhysic2();
         collisionList = new ArrayList<>();
-
     }
-    public Hitbox2(Vector3 bounds)
-    {
-        setBounds(bounds);
-    }
-
-
 
 
     public boolean checked;
@@ -34,98 +30,88 @@ public class Hitbox2 extends Child {
 
     private Vector3 bounds;
 
-    public Vector3 getBounds(){return bounds;}
-    public void setBounds (Vector3 bounds){
+    private Vector3 boundsNegative;
 
-        this.bounds = bounds;
-
+    public Vector3 getBounds()
+    {
+        return bounds;
     }
-    public Vector3 getBoundsNegative(){return new Vector3(-bounds.x,-bounds.y,-bounds.z);}
 
-    public Vector3 getBoundsGlobal(){return bounds.added(getPosition());}
+    public void setBounds(Vector3 bounds)
+    {
+        this.bounds = bounds;
+    }
 
-    public Vector3 getBoundsGlobalNegative(){return getBoundsNegative().added(getPosition());}
+    public void setBoundsNegative(Vector3 boundsNegative)
+    {
+        this.boundsNegative = boundsNegative;
+    }
+
+    public Vector3 getBoundsNegative()
+    {
+        return boundsNegative;
+    }
+
+    public Vector3 getBoundsGlobal()
+    {
+        return bounds.added(getPosition());
+    }
+
+    public Vector3 getBoundsGlobalNegative()
+    {
+        return getBoundsNegative().added(getPosition());
+    }
 
 
-
-
-
-
-    public Physic2 physic2;
+    public Physic3 physic3;
 
     public List<Collision> collisionList;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void onCollision(Collision collision) {
+    public void onCollision(Collision collision)
+    {
         boolean foundCollision = false;
         int index = 0;
-        for (int c1 = 0; c1 < collisionList.size(); c1++) {
-            if (collision.colliderPrimary == collisionList.get(c1).colliderPrimary && collision.colliderSecondary == collisionList.get(c1).colliderSecondary) {
+        for (int c1 = 0; c1 < collisionList.size(); c1++)
+        {
+            if (collision.colliderPrimary == collisionList.get(c1).colliderPrimary && collision.colliderSecondary == collisionList.get(c1).colliderSecondary)
+            {
                 foundCollision = true;
                 index = c1;
-                collisionList.set(c1,collision);
+                collisionList.set(c1, collision);
             }
         }
         if (!foundCollision)
         {
             collisionList.add(collision);
             onCollisionEnter(collision);
-        }
-        else
+        } else
         {
             collisionList.get(index).setRefreshedThisCycle(true);
             onCollisionStay(collision);
         }
     }
-    public void onCollisionEnter(Collision collision) {
+
+    public void onCollisionEnter(Collision collision)
+    {
         //System.out.println("behold, CollisionEnter!");
     }
 
-    public void onCollisionStay(Collision collision) {
+    public void onCollisionStay(Collision collision)
+    {
         //System.out.println("behold, CollisionStay!");
     }
 
-    public void onCollisionExit(Collision collision) {
-        collisionList.remove(collision);
-       // System.out.println("behold, CollisionExit!");
-    }
-
-
-
-
-
-
-
-    public boolean overlapsHitbox(Vector3 h2Bounds, Vector3 h2BoundsNegative)
+    public void onCollisionExit(Collision collision)
     {
-        if ((getBoundsGlobal().x >= h2BoundsNegative.x && getBoundsGlobal().y >= h2BoundsNegative.y)//check h1>h2
-                && ( getBoundsGlobalNegative().x <= h2Bounds.x && getBoundsGlobalNegative().y <= h2Bounds.y))//check h1<h2
-        {
-            return  true;
-        }
-        return  false;
+        collisionList.remove(collision);
+        // System.out.println("behold, CollisionExit!");
     }
+
+
     public boolean overlapsHitboxOffset(Vector3 h2Bounds, Vector3 h2BoundsNegative, Vector3 offset)
     {
-        if(
+        if (
                 (
                         getBoundsGlobal().added(offset).x > h2BoundsNegative.x
                                 &&
@@ -145,8 +131,8 @@ public class Hitbox2 extends Child {
                         )
         )
         {
-            return  true;
+            return true;
         }
-        return  false;
+        return false;
     }
 }

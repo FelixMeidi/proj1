@@ -1,12 +1,11 @@
 package scripts.classes;
 
-import scripts.classes.ChildSUB.Hitbox2;
+import scripts.classes.ChildSUB.Hitbox3;
 
 public class Collision {
-    public Collision(Hitbox2 colliderPrimary,Hitbox2 colliderSecondary/*,Vector3 direction*/){
+    public Collision(Hitbox3 colliderPrimary, Hitbox3 colliderSecondary/*,Vector3 direction*/){
         this.colliderPrimary = colliderPrimary;
         this.colliderSecondary = colliderSecondary;
-       /* this.direction = direction;*/
         refreshed = true;
     }
 
@@ -14,8 +13,8 @@ public class Collision {
 
 
 
-    public Hitbox2 colliderPrimary;
-    public Hitbox2 colliderSecondary;
+    public Hitbox3 colliderPrimary;
+    public Hitbox3 colliderSecondary;
 
 
 
@@ -24,8 +23,4 @@ public class Collision {
     public boolean refreshed;
     public boolean getRefreshedThisCycle(){return refreshed;}
     public void setRefreshedThisCycle(boolean b){refreshed = b;}
-
-
-
-   /* public Vector3 direction;*/
 }

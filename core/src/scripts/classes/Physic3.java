@@ -1,18 +1,18 @@
 package scripts.classes;
 
 import com.badlogic.gdx.Gdx;
-import scripts.classes.ChildSUB.Hitbox2;
+import scripts.classes.ChildSUB.Hitbox3;
 
-public class Physic2{
+public class Physic3 {
     //region constructors
-    public Physic2(GameCharacter gameCharacter, boolean fixed, boolean infiniteWeight, float weight){
+    public Physic3(GameCharacter gameCharacter, boolean fixed, boolean infiniteWeight, float weight){
         this.gameCharacter = gameCharacter;
         velocity = new Vector3();
         this.fixed = fixed;
         this.infiniteWeight = infiniteWeight;
         this.weight = weight;
     }
-    public Hitbox2 hitbox2;
+    public Hitbox3 hitbox3;
     private GameCharacter gameCharacter;
     public boolean fixed;
     public boolean infiniteWeight;

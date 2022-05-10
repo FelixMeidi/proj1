@@ -10,7 +10,7 @@ public class GameCharacter
     protected GameCharacter(int ID,Texture img,float weight, boolean fixed)
     {
         positon = new Vector3();
-        physic2 = new Physic2(this,fixed,false,weight);
+        physic3 = new Physic3(this,fixed,false,weight);
         childList = new ArrayList<Child>();
         tx = img;
         this.ID = ID;
@@ -18,7 +18,7 @@ public class GameCharacter
     protected GameCharacter(int ID,Texture img,boolean fixed)
     {
         positon = new Vector3();
-        physic2 = new Physic2(this,fixed,true,314);
+        physic3 = new Physic3(this,fixed,true,314);
         childList = new ArrayList<Child>();
         tx = img;
         this.ID = ID;
@@ -40,7 +40,8 @@ public class GameCharacter
 
     protected Vector3 positon;
     public Vector3 getPositon(){return positon.copied();}
-    public void setPosition(Vector3 targetposition){
+    public void setPosition(Vector3 targetposition)
+    {
         positon = targetposition;
     }
     public void addToPosition(Vector3 addedPosition)
@@ -52,8 +53,8 @@ public class GameCharacter
 
 
 
-    protected Physic2 physic2;
-    public Physic2 getPhysic2(){return physic2;}
+    protected Physic3 physic3;
+    public Physic3 getPhysic2(){return physic3;}
 
 
 
@@ -69,4 +70,21 @@ public class GameCharacter
 
 
     public Texture tx;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //OTHER//
+   public boolean rendered;
 }
