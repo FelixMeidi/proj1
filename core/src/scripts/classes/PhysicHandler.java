@@ -30,7 +30,7 @@ public /*static*/ final class PhysicHandler
                     if (h2.activated&&!h2.checked) {
                         if (c1 != c2) {
                             //calculate offset
-                            int c3 = 2;
+                            int c3 = 0;
                             Vector3 offset;
                             float velocitySum = h1.physic3.getVelocity().sum()/100;
                             boolean collisionFound = false;
@@ -39,22 +39,25 @@ public /*static*/ final class PhysicHandler
                                 if (h1.overlapsHitboxOffset(h2.getBoundsGlobal(), h2.getBoundsGlobalNegative(),offset)) {
                                     h1.onCollision(new Collision(h1, h2));
                                     h2.onCollision(new Collision(h2, h1));
-
-                                    Vector3 newVelocity1 = h1.physic3.getVelocity().calculateNewVelocity(h2.physic3.getVelocity(),h1.getPosition(),h2.getPosition(),h1.physic3.getWeight(),h2.physic3.getWeight());
-//
-                                    Vector3 newVelocity2 = h2.physic3.getVelocity().calculateNewVelocity(h1.physic3.getVelocity(),h2.getPosition(),h1.getPosition(),h2.physic3.getWeight(),h1.physic3.getWeight());
-
-                                    if(h1.physic3.infiniteWeight)
+                                    Vector3 newVelocity1 = new Vector3();
+                                    Vector3 newVelocity2 = new Vector3();
+                                    if(!h1.physic3.infiniteWeight&&!h2.physic3.infiniteWeight)
                                     {
-                                        newVelocity2 = h2.physic3.getVelocity().calculateNewVelocity(h1.physic3.getVelocity(),h1.getPosition(),h2.getPosition());
+                                        newVelocity1 = calculateNewVelocity(h1.physic3.getVelocity(), h2.physic3.getVelocity(), h1, h2, h1.physic3.getWeight(), h2.physic3.getWeight());
+
+                                        newVelocity2 = calculateNewVelocity(h2.physic3.getVelocity(), h1.physic3.getVelocity(), h2, h1, h2.physic3.getWeight(), h1.physic3.getWeight());
                                     }
-                                    if(h2.physic3.infiniteWeight)
+                                    else if(h2.physic3.infiniteWeight)
                                     {
-                                        newVelocity1 = h1.physic3.getVelocity().calculateNewVelocity(h2.physic3.getVelocity(),h2.getPosition(),h1.getPosition());
+                                        newVelocity1 = calculateNewVelocity(h1.physic3.getVelocity(),h1,h2);
+                                    }
+                                    else if(h1.physic3.infiniteWeight)
+                                    {
+                                        newVelocity2 = calculateNewVelocity(h2.physic3.getVelocity(),h2,h1);
                                     }
                                     h1.physic3.setVelocity(newVelocity1);
                                     h2.physic3.setVelocity(newVelocity2);
-
+/*
 
                                     if(c3>2)//calculate polished offset and position
                                     {
@@ -67,13 +70,13 @@ public /*static*/ final class PhysicHandler
                                         Vector3 setback = h1.physic3.getVelocity().zeroOrOned().multiplied(addition);
                                         setback = setback.multiplied(0);
                                         accurateOffset = accurateOffset.subbed(setback);
-                                        h1.parent.addToPosition(accurateOffset);
+                                      //  h1.parent.addToPosition(accurateOffset);
                                     }
-                                    collisionFound = true;
+                                    collisionFound = true;*/
                                 }
                                 c3++;
 
-                            }while(velocitySum > offset.valued().sum()/2&&!collisionFound);
+                            }while(velocitySum > offset.valued().sum()/2/*&&!collisionFound*/);
                         }
                     }
                 }
@@ -120,7 +123,49 @@ public /*static*/ final class PhysicHandler
     {
         for (int c1 = 0; c1 < GameCharacter.gameCharacterList.size(); c1++) {
             Physic3 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic2();
-            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-1f,0))));
+            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-0.2f,0))));
         }
+    }
+
+    public static Vector3 calculateNewVelocity(Vector3 v,Vector3 v2, Hitbox3 h1, Hitbox3 h2, float weight1, float weight2)
+    {
+        Vector3 posDiff = new Vector3(h2.boundsMiddlePoint().added(h2.getPosition()).subbed(h1.boundsMiddlePoint().added(h1.getPosition())));
+        Vector3 boundsCombined = new Vector3(h2.centeredBounds().absd().added(h1.centeredBounds().absd()));
+        Vector3 endDiff = posDiff.absd().subbed(boundsCombined);
+        Vector3 endDiffABS = endDiff.absd();
+        if(endDiffABS.x<endDiffABS.y&&endDiffABS.x<endDiffABS.z)
+        {
+            v.x = (v.x * weight1 + v2.x * weight2) / (weight1 + weight2);
+        }
+        if(endDiffABS.y<endDiffABS.x&&endDiffABS.y<endDiffABS.z)
+        {
+            v.y = (v.y * weight1 + v2.y * weight2) / (weight1 + weight2);
+        }
+        if(endDiffABS.z<endDiffABS.x&&endDiffABS.z<endDiffABS.y)
+        {
+            v.y = (v.y * weight1 + v2.y * weight2) / (weight1 + weight2);
+        }
+        return  v;
+    }
+
+    public static Vector3 calculateNewVelocity(Vector3 v, Hitbox3 h1, Hitbox3 h2)
+    {
+        Vector3 posDiff = new Vector3(h2.boundsMiddlePoint().added(h2.getPosition()).subbed(h1.boundsMiddlePoint().added(h1.getPosition())));
+        Vector3 boundsCombined = new Vector3(h2.centeredBounds().absd().added(h1.centeredBounds().absd()));
+        Vector3 endDiff = posDiff.absd().subbed(boundsCombined);
+        Vector3 endDiffABS = endDiff.absd();
+        if(endDiffABS.x<endDiffABS.y&&endDiffABS.x<endDiffABS.z)
+        {
+            v.x = 0;
+        }
+        if(endDiffABS.y<endDiffABS.x&&endDiffABS.y<endDiffABS.z)
+        {
+            v.y = 0;
+        }
+        if(endDiffABS.z<endDiffABS.x&&endDiffABS.z<endDiffABS.y)
+        {
+            v.z = 0;
+        }
+        return  v;
     }
 }

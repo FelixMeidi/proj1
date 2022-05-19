@@ -51,13 +51,18 @@ public abstract class Renderer {
 
 
 
-        if(false)
+        if(true)
         {
             Texture tx2 = new Texture("hitbox.png");
             for(int c1 = 0; c1<TextureChild.textureList.size(); c1++)
             {
                 Hitbox3 bx = (Hitbox3)TextureChild.textureList.get(c1).parent.getfromChildList(0);;
-                batch.draw(tx2,bx.getPosition().x-(float)Math.sqrt(Math.pow(bx.getBoundsNegative().x,2)),bx.getPosition().y-(float)Math.sqrt(Math.pow(bx.getBoundsNegative().y,2)),(float)Math.sqrt(Math.pow(bx.getBoundsNegative().x,2))+bx.getBounds().x ,(float)Math.sqrt(Math.pow(bx.getBoundsNegative().y,2))+bx.getBounds().y );
+                batch.draw(tx2,
+                        bx.getPosition().x- Math.abs(bx.getBoundsNegative().x),
+                        bx.getPosition().y- Math.abs(bx.getBoundsNegative().y),
+                        Math.abs(bx.getBounds().x)+Math.abs(bx.getBoundsNegative().x),
+                        Math.abs(bx.getBounds().y)+Math.abs(bx.getBoundsNegative().y)
+                        );
             }
         }
         batch.end();

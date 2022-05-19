@@ -36,18 +36,21 @@ public class Hitbox3 extends Child
     }
 
 
+
+
     public boolean checked;
+
+
+
 
     public boolean activated;
 
+
+
+    ////////////////---region Bounds---////////////////
     private Vector3 bounds;
 
     private Vector3 boundsNegative;
-
-    public Vector3 getBounds()
-    {
-        return bounds.copied();
-    }
 
     public void setBounds(Vector3 bounds)
     {
@@ -57,6 +60,13 @@ public class Hitbox3 extends Child
     public void setBoundsNegative(Vector3 boundsNegative)
     {
         this.boundsNegative = boundsNegative;
+    }
+
+    ///additional
+
+    public Vector3 getBounds()
+    {
+        return bounds.copied();
     }
 
     public Vector3 getBoundsNegative()
@@ -74,10 +84,37 @@ public class Hitbox3 extends Child
         return getBoundsNegative().added(getPosition());
     }
 
+    public Vector3 boundsMiddlePoint(){return getBoundsNegative().added(getBounds()).divided(2);}
+
+    public Vector3 centeredBounds(){return getBounds().subbed(boundsMiddlePoint());}
+
+    public Vector3 centeredTotalBounds(){return centeredBounds().multiplied(2);}
+
+    public float inchesDivided2(){return getBounds().inches();}
+
+    ////////////////---endregion Bounds---////////////////
+
 
     public Physic3 physic3;
 
     public List<Collision> collisionList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void onCollision(Collision collision)

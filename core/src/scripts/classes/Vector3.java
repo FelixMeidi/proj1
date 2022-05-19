@@ -91,7 +91,7 @@ public class Vector3 {
 
 
 
-
+    public Vector3 absd(){return new Vector3(Math.abs(x),Math.abs(y),Math.abs(z));}
 
     public float sum()
     {
@@ -103,6 +103,7 @@ public class Vector3 {
     }
 
 
+    public float inches(){return (float)Math.sqrt(x*x+y*y+z*z);}
 
 
 
@@ -143,62 +144,5 @@ public class Vector3 {
 
     //// update from here
 
-    public Vector3 calculateNewVelocity(Vector3 v2, Vector3 pos1, Vector3 pos2, float weight1, float weight2)
-    {
-        Vector3 diff = pos2.subbed(pos1);
-        diff.x = Math.abs(diff.x);
-        diff.y = Math.abs(diff.y);
-        diff.z = Math.abs(diff.z);
-        boolean calculateX = false;
-        boolean calculateY = false;
-        boolean calculateZ = false;
-        if(diff.x>diff.y&&diff.x>diff.z)
-        {
-            calculateX = true;
-        }
-        else if(diff.y>=diff.x&&diff.y>=diff.z)
-        {
-            calculateY = true;
-        }
-        else
-        {
-            calculateZ = true;
-        }
-        Vector3 v = this.copied();
-        if(calculateX||calculateY) {
-            if (calculateY) {
-                v.y = (v.y * weight1 + v2.y * weight2) / (weight1 + weight2);
-            }
-            if (calculateX) {
-                v.x = (v.x * weight1 + v2.x * weight2) / (weight1 + weight2);
-            }
-            if (calculateZ) {
-                v.z = (v.z * weight1 + v2.z * weight2) / (weight1 + weight2);
-            }
-            return v;
-        }
-        return v.multiplied(weight1).added(v2.multiplied(weight2)).divided(weight1+weight2);
-    }
 
-    public Vector3 calculateNewVelocity(Vector3 v2, Vector3 pos1, Vector3 pos2)
-    {
-        Vector3 diff = pos2.subbed(pos1);
-        diff.x = Math.abs(diff.x);
-        diff.y = Math.abs(diff.y);
-        diff.z = Math.abs(diff.z);
-        Vector3 v = this.copied();
-        if(diff.x>diff.y&&diff.x>diff.z)
-        {
-            v.x = 0;
-        }
-        else if(diff.y>=diff.x&&diff.y>=diff.z)
-        {
-            v.y = 0;
-        }
-        else
-        {
-            v.z = 0;
-        }
-        return v;
-    }
 }
