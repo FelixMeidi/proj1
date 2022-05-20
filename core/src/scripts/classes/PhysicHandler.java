@@ -30,7 +30,7 @@ public /*static*/ final class PhysicHandler
                     if (h2.activated&&!h2.checked) {
                         if (c1 != c2) {
                             //calculate offset
-                            int c3 = 0;
+                            int c3 = 1;
                             Vector3 offset;
                             float velocitySum = h1.physic3.getVelocity().sum()/100;
                             boolean collisionFound = false;
@@ -122,8 +122,8 @@ public /*static*/ final class PhysicHandler
     public static void setGravityVelocity()
     {
         for (int c1 = 0; c1 < GameCharacter.gameCharacterList.size(); c1++) {
-            Physic3 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic2();
-            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-0.2f,0))));
+            Physic3 phy2 = GameCharacter.gameCharacterList.get(c1).getPhysic3();
+            phy2.setVelocity(new Vector3(phy2.getVelocity().added(new Vector3(0,-1f,0).multiplied(Renderer.scaling))));
         }
     }
 
@@ -143,7 +143,7 @@ public /*static*/ final class PhysicHandler
         }
         if(endDiffABS.z<endDiffABS.x&&endDiffABS.z<endDiffABS.y)
         {
-            v.y = (v.y * weight1 + v2.y * weight2) / (weight1 + weight2);
+            v.z = (v.z * weight1 + v2.z * weight2) / (weight1 + weight2);
         }
         return  v;
     }

@@ -35,9 +35,9 @@ public abstract class ControlPlayer {
             currentMovement.z+=1;
         }
         currentMovement = currentMovement.multiplied(1);
-        Vector3 newvel = player.getPhysic2().getVelocity().copied();
+        Vector3 newvel = player.getPhysic3().getVelocity().copied();
         newvel.x = currentMovement.x;
         newvel.z = currentMovement.z;
-        player.getPhysic2().setVelocity(newvel);
+        player.getPhysic3().setVelocity(newvel);
     }
 }

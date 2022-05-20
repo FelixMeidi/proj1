@@ -51,18 +51,38 @@ public abstract class Renderer {
 
 
 
-        if(true)
+        if(false)
         {
             Texture tx2 = new Texture("hitbox.png");
-            for(int c1 = 0; c1<TextureChild.textureList.size(); c1++)
+            Texture tx3 = new Texture("hitboxz.png");
+            if(true)
             {
-                Hitbox3 bx = (Hitbox3)TextureChild.textureList.get(c1).parent.getfromChildList(0);;
-                batch.draw(tx2,
-                        bx.getPosition().x- Math.abs(bx.getBoundsNegative().x),
-                        bx.getPosition().y- Math.abs(bx.getBoundsNegative().y),
-                        Math.abs(bx.getBounds().x)+Math.abs(bx.getBoundsNegative().x),
-                        Math.abs(bx.getBounds().y)+Math.abs(bx.getBoundsNegative().y)
-                        );
+                for (int c1 = 0; c1 < TextureChild.textureList.size(); c1++)
+                {
+                    Hitbox3 bx = (Hitbox3) TextureChild.textureList.get(c1).parent.getfromChildList(0);
+                    ;
+                    batch.draw(tx2,
+                            bx.getPosition().x - Math.abs(bx.getBoundsNegative().x),
+                            bx.getPosition().y - Math.abs(bx.getBoundsNegative().y),
+                            Math.abs(bx.getBounds().x) + Math.abs(bx.getBoundsNegative().x),
+                            Math.abs(bx.getBounds().y) + Math.abs(bx.getBoundsNegative().y)
+                    );
+
+                }
+            }
+            if(true)
+            {
+                for (int c1 = 0; c1 < TextureChild.textureList.size(); c1++)
+                {
+                    Hitbox3 bx = (Hitbox3) TextureChild.textureList.get(c1).parent.getfromChildList(0);
+                    ;
+                    batch.draw(tx3,
+                            bx.getPosition().x - Math.abs(bx.getBoundsNegative().x),
+                            bx.getPosition().negated().z - Math.abs(bx.getBounds().z),
+                            Math.abs(bx.getBounds().x) + Math.abs(bx.getBoundsNegative().x),
+                            Math.abs(bx.getBounds().z) + Math.abs(bx.getBoundsNegative().z)
+                    );
+                }
             }
         }
         batch.end();

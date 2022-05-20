@@ -1,7 +1,6 @@
 package scripts.classes.ChildSUB;
 
 import scripts.classes.*;
-import scripts.classes.GameCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,28 +9,28 @@ import static scripts.classes.PhysicHandler.hitbox3List;
 
 public class Hitbox3 extends Child
 {
-    public Hitbox3(GameCharacter parent, ChildPositionHandler positionHandler, Vector3 bounds, Vector3 boundsNegative)
+    public Hitbox3(Vector3 bounds, Vector3 boundsNegative)
     {
-        super(parent, positionHandler);
+        super();
         checked = false;
         this.parent = parent;
         hitbox3List.add(this);
         setBounds(bounds);
         setBoundsNegative(boundsNegative);
         activated = true;
-        this.physic3 = parent.getPhysic2();
+        this.physic3 = parent.getPhysic3();
         collisionList = new ArrayList<>();
     }
-    public Hitbox3(GameCharacter parent,Vector3 bounds, Vector3 boundsNegative)
+    public Hitbox3(ChildPositionHandler handler, Vector3 bounds, Vector3 boundsNegative)
     {
-        super(parent, new ChildPositionHandler());
+        super(handler);
         checked = false;
         this.parent = parent;
         hitbox3List.add(this);
         setBounds(bounds);
         setBoundsNegative(boundsNegative);
         activated = true;
-        this.physic3 = parent.getPhysic2();
+        this.physic3 = parent.getPhysic3();
         collisionList = new ArrayList<>();
     }
 

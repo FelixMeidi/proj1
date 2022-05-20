@@ -18,21 +18,21 @@ public class TextureChild extends Child
         super(parent,handler);
         this.tx = tx;
         textureList.add(this);
-        this.rootoffset = rootoffset;
+        this.rootoffset = new Vector3(0,tx.getHeight(),tx.getHeight()).added(rootoffset);
     }
     public TextureChild(Texture tx, GameCharacter parent, Vector3 rootoffset)
     {
         super(parent,new ChildPositionHandler());
         this.tx = tx;
         textureList.add(this);
-        this.rootoffset = rootoffset;
+        this.rootoffset = new Vector3(0,tx.getHeight(),tx.getHeight()).added(rootoffset);
     }
     public TextureChild(Texture tx, GameCharacter parent)
     {
         super(parent,new ChildPositionHandler());
         this.tx = tx;
         textureList.add(this);
-        this.rootoffset = Vector3.zero;
+        this.rootoffset = new Vector3(0,tx.getHeight(),tx.getHeight());
     }
     public Texture tx;
     public boolean rendered;

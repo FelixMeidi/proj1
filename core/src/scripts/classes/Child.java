@@ -1,10 +1,14 @@
 package scripts.classes;
 
 public class Child {
-    public Child(GameCharacter parent, ChildPositionHandler positionHandler)
+    public Child(ChildPositionHandler positionHandler)
     {
         this.parent = parent;
         this.positionHandler = positionHandler;
+    }
+    public Child()
+    {
+        this.positionHandler = new ChildPositionHandler();
     }
 
 

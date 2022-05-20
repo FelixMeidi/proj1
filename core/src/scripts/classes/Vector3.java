@@ -89,6 +89,9 @@ public class Vector3 {
     }
 
 
+    public Vector3 negated(){return new Vector3(-x,-y,-z);}
+
+
 
 
     public Vector3 absd(){return new Vector3(Math.abs(x),Math.abs(y),Math.abs(z));}

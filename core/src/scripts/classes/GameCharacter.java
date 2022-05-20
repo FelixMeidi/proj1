@@ -1,24 +1,20 @@
 package scripts.classes;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameCharacter
 {
-    protected GameCharacter(int ID,float weight, boolean fixed)
+    protected GameCharacter(int ID)
     {
         positon = new Vector3();
-        physic3 = new Physic3(this,fixed,false,weight);
         childList = new ArrayList<Child>();
         this.ID = ID;
     }
-    protected GameCharacter(int ID,boolean fixed)
+    protected GameCharacter(int ID, ArrayList<Child> list)
     {
         positon = new Vector3();
-        physic3 = new Physic3(this,fixed,true,314);
-        childList = new ArrayList<Child>();
+        childList = list;
         this.ID = ID;
     }
 
@@ -51,8 +47,10 @@ public class GameCharacter
 
 
 
-    protected Physic3 physic3;
-    public Physic3 getPhysic2(){return physic3;}
+    public Physic3 getPhysic3()
+    {
+        return (Physic3)getfromChildList("Physic3");
+    }
 
 
 
@@ -62,22 +60,20 @@ public class GameCharacter
     private List<Child> childList;
     public void addtoChildList(Child c)
     {
+        c.parent = this;
         childList.add(c);
     }
     public Child getfromChildList(int index){return childList.get(index);}
 
-
-    public Texture tx;
-
-
-
-
-
-
-
-
-
-
-
-
+    public Child getfromChildList(String className)
+    {
+        for(int c1 = 0;c1<childList.size();c1++)
+        {
+            if (childList.get(c1).toString() == className)
+            {
+                return childList.get(c1);
+            }
+        }
+        return  null;
+    }
 }
